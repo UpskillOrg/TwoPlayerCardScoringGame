@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="CardScroingGame.UI.CardScroingGameUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:model="using:CardScoringGame.Model" 
+    xmlns:ui="using:CardScroingGame.UI"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="NumberBox" x:Key="NumberOfPackStyle">
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="SpinButtonPlacementMode" Value="Inline"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Padding" Value="20, 10"/>
+        </Style>
+        <ui:ResultTemplateSelector x:Key="ResultTemplateSelector">
+            <ui:ResultTemplateSelector.NoneTemplate>
+                <DataTemplate x:DataType="model:MatchResult">
+                    <Border Background="DarkGray">
+                        <TextBlock Text="{x:Bind Message}" Style="{StaticResource TitleTextBlockStyle}"/>
+                    </Border>
+                </DataTemplate>
+            </ui:ResultTemplateSelector.NoneTemplate>
+            <ui:ResultTemplateSelector.NoMatchTemplate>
+                <DataTemplate x:DataType="model:MatchResult">
+                    <Border Background="LightGray" >
+                        <TextBlock Text="{x:Bind Message}" Style="{StaticResource TitleTextBlockStyle}"/>
+                    </Border>
+                </DataTemplate>
+            </ui:ResultTemplateSelector.NoMatchTemplate>
+            <ui:ResultTemplateSelector.ScoredTemplate>
+                <DataTemplate x:DataType="model:MatchResult">
+                    <Border Background="DimGray">
+                        <TextBlock Text="{x:Bind Message}" Style="{StaticResource TitleTextBlockStyle}"/>
+                    </Border>
+                </DataTemplate>
+            </ui:ResultTemplateSelector.ScoredTemplate>
+            <ui:ResultTemplateSelector.EndResultTemplate>
+                <DataTemplate x:DataType="model:EndResult">
+                    <Border Background="Gray">
+                        <TextBlock Text="{x:Bind Message}" Style="{StaticResource TitleTextBlockStyle}"/>
+                    </Border>
+                </DataTemplate>
+            </ui:ResultTemplateSelector.EndResultTemplate>
+        </ui:ResultTemplateSelector>
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Margin="10" Grid.Row="0" Grid.Column="0" Text="Number of Packs" />
+
+        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Margin="10" Grid.Row="1" Grid.Column="0" Text="Match" />
+
+        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Margin="10" Grid.Row="2" Grid.Column="0" Text="Output" />
+        
+        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Margin="10" Grid.Row="3" Grid.Column="0" Text="Pending Cards To Be Played" />
+
+        <NumberBox Style="{StaticResource NumberOfPackStyle}" Grid.Row="0" Grid.Column="1" Value="{x:Bind ViewModel.NoOfPacks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
+
+        <FlipView HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" MaxWidth="400" Height="180" ItemsSource="{x:Bind ViewModel.CardMatchOptions, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.CardMatchOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10">
+            <FlipView.ItemTemplate>
+                <DataTemplate x:DataType="model:CardMatchOption">
+                    <Grid>
+                        <TextBlock Style="{StaticResource DisplayTextBlockStyle}" Text="{x:Bind}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <ScrollViewer Margin="10" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Height="500" VerticalScrollBarVisibility="Visible" Width="1000">
+            <ItemsControl ItemTemplateSelector="{StaticResource ResultTemplateSelector}" ItemsSource="{x:Bind ViewModel.GameResults, Mode=OneWay}"  HorizontalAlignment="Left" Width="1000" />
+        </ScrollViewer>
+
+        <TextBlock Margin="10 -5 10 0" Grid.Row="3" Grid.Column="1" Style="{StaticResource DisplayTextBlockStyle}" Text="{x:Bind ViewModel.PendingCardsToBePlayed, Mode=OneWay}"/>
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Start" Command="{x:Bind ViewModel.StartGameCommand}" Margin="10" ToolTipService.ToolTip="Click to Start the Game" />
+
+            <Button Grid.Column="1" Content="Play" Command="{x:Bind ViewModel.PlayGameCommand}" Margin="10" ToolTipService.ToolTip="Click for Manual Play"/>
+
+            <Button Grid.Column="2" Content="Auto Play" Command="{x:Bind ViewModel.AutoPlayGameCommand}" Margin="10" ToolTipService.ToolTip="Click to Auto Play"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

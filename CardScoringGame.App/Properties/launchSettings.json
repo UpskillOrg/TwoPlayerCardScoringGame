@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CardScoringGame.App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CardScoringGame.App (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
