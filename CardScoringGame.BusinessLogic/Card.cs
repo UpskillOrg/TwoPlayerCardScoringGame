@@ -1,9 +1,11 @@
-﻿namespace TwoPlayerCardScoringGame
+﻿using CardScoringGame.Model;
+
+namespace TwoPlayerCardScoringGame
 {
     public class Card
     {
         public int Value { get; set; }
-        public string? Suit { get; set; }
+        public Suit? Suit { get; set; }
 
         public override string ToString()
         {

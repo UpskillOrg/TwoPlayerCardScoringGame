@@ -10,7 +10,8 @@ namespace CardScoringGame.App
         public CardGameWindow(CardGameWindowViewModel viewModel)
         {
             this.InitializeComponent();
-            Title = "Two Player Card Scoring Game";
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
             ViewModel = viewModel;
             var windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(this);
             PInvoke.User32.ShowWindow(windowHandle, PInvoke.User32.WindowShowStyle.SW_MAXIMIZE);

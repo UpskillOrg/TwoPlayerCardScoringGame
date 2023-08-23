@@ -1,6 +1,8 @@
-﻿namespace TwoPlayerCardScoringGame
+﻿using CardScoringGame.Model;
+
+namespace TwoPlayerCardScoringGame
 {
-        public class Deck
+    public class Deck
         {
             public List<Card> Cards { get; set; }
  
@@ -9,7 +11,7 @@
                 Cards = new List<Card>();
                 for (int i = 0; i < numberOfDecks; i++)
                 {
-                    foreach (string suit in new string[] { "Spades", "Hearts", "Clubs", "Diamonds" })
+                    foreach (var suit in new Suit[] { Suit.Clubs, Suit.Spades, Suit.Diamonds, Suit.Hearts })
                     {
                         for (int value = 1; value <= 13; value++)
                         {

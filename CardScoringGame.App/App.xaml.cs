@@ -14,7 +14,7 @@ namespace CardScoringGame.App
     public partial class App : Application
     {
         #region Private Members
-        private IHost? _host;
+        private IHost _host;
         private CardGameWindow _cardGameWindow;
         #endregion
 
