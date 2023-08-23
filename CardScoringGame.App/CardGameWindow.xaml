@@ -13,15 +13,18 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="AppTitleBar">
-            <TextBlock x:Name="AppTitleTextBlock" Text="Two Player Card Scoring Game"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <FontIcon Margin="10,7,5,5" Grid.Column="0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;" FontSize="30"/>
+            <TextBlock Margin="10,0,0,1" Grid.Column="1" x:Name="AppTitleTextBlock" Text="Two Player Card Scoring Game"
                 TextWrapping="NoWrap"
                 Style="{StaticResource CaptionTextBlockStyle}" 
                 FontSize="25" 
                 FontWeight="SemiBold"
-                Foreground="Black"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Margin="28,0,0,0"/>
+                Foreground="Black"                
+                VerticalAlignment="Center"/>
         </Grid>
 
         <userControls:CardScroingGameUserControl Grid.Row="1" ViewModel="{x:Bind ViewModel.CardScoringGameViewModel}"/>
